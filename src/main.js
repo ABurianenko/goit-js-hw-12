@@ -34,6 +34,8 @@ const instanse = new SimpleLightbox('.gallery-markup a', {
 
 export function handleSearch(event) {
     event.preventDefault();
+
+    page = 1;
     
     const list = document.querySelector('.gallery-markup');
     nameSearch = event.currentTarget.elements.title.value.toLowerCase().trim();
