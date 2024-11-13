@@ -1,8 +1,8 @@
 `use strict`
 
-export function createMarkup(arr) {
-    const list = document.querySelector('.gallery-markup');
-    
+
+
+export function createMarkup(arr) {  
     return arr.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
         <li class= "gallery-item" >
             <a class="gallery-item-link" href="${largeImageURL}">
@@ -31,7 +31,10 @@ export function createMarkup(arr) {
                 </li>
             </ul>
         </li>
-    `).join("")
+    `).join("");
+
+    
+
 }
 
 
