@@ -66,23 +66,29 @@ export function handleSearch(event) {
                 loadMore.classList.replace("load-more-hidden", "load-more")
             };
             
-            const images = list.querySelectorAll("img");
-            const promises = Array.from(images).map(img => {
-                return new Promise((resolve, reject) => {
-                    img.onload = resolve;
-                    img.onerror = reject;
-                });
-            });
+            // const images = list.querySelectorAll("img");
+            // const promises = Array.from(images).map(img => {
+            //     return new Promise((resolve, reject) => {
+            //         img.onload = resolve;
+            //         img.onerror = reject;
+            //     });
+            // });
 
-            return Promise.all(promises).then(() => {
-                instanse.refresh('show.simplelightbox'); 
+            // return Promise.all(promises).then(() => {
+                instanse.refresh(); 
                 hideLoader(); 
-            });
+            // });
 
 
         })
         .catch(error => {
-        console.log("catch", error);
+            console.log("catch", error);
+            iziToast.error({
+                title: 'Error',
+                message: 'Failed to fetch images. Please try again later.',
+                timeout: 2500,
+                closeOnClick: true,
+            });
         })
         .finally(() => {
             hideLoader();
@@ -106,11 +112,13 @@ async function onLoadMore() {
     try {
         const data = await fetchData(nameSearch, page, perPage);
         list.insertAdjacentHTML("beforeend", createMarkup(data.hits));
-        instanse.refresh('show.simplelightbox'); 
+        instanse.refresh(); 
 
         const cardSize = list.lastElementChild.getBoundingClientRect();
+        console.log(cardSize);
+        
         window.scrollBy({
-        top: cardSize.top + cardSize.height * 1.5,
+        top: cardSize.height * 2,
         behavior: 'smooth',
         });
 
